@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -7,9 +7,19 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {graphql, useStaticQuery} from "gatsby";
+import SvgIcon from "@material-ui/icons/Menu";
+import {Icon} from "@material-ui/core";
+import theme from "../theme";
 
 
-const useStyles =  makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
+    imageIcon: {
+        height: '40px',
+
+    },
+    iconRoot: {
+        textAlign: 'center',
+    },
     root: {
         flexGrow: 1,
     },
@@ -19,11 +29,19 @@ const useStyles =  makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    appBar:
+        {
+            boxShadow: "none",
+            color: "black",
+            backgroundColor: "transparent",
+            height: '100px'
+
+        }
 }));
 
 
 export default function Navbar() {
-  const data = useStaticQuery(graphql`
+    const data = useStaticQuery(graphql`
     {
       site {
         siteMetadata {
@@ -32,19 +50,28 @@ export default function Navbar() {
       }
     }
   `)
-  const { title } = data.site.siteMetadata
+    const {title} = data.site.siteMetadata
 
     const classes = useStyles();
-    console.log(classes.palette);
+    console.log(theme.palette);
     return (
         <div className={classes.root}>
-            <AppBar position="static" color="transparent">
+            <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
+                    <Icon classes={{root: classes.iconRoot}}>
+                        <img className={classes.imageIcon} src="/nbt.svg"/>
+                    </Icon>
                     <Typography variant="h6" className={classes.title}>
-                        News
+                        Услуги
+                    </Typography>
+                    <Typography variant="h6" className={classes.title}>
+                        Готовые изделия
+                    </Typography>
+                    <Typography variant="h6" className={classes.title}>
+                        О компании
+                    </Typography>
+                    <Typography variant="h6" className={classes.title}>
+                        О компании
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
