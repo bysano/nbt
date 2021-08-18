@@ -1,5 +1,26 @@
-import React from 'react'
-import { graphql, Link, useStaticQuery } from 'gatsby'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import {graphql, useStaticQuery} from "gatsby";
+
+
+const useStyles =  makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+}));
+
 
 export default function Navbar() {
   const data = useStaticQuery(graphql`
@@ -13,14 +34,24 @@ export default function Navbar() {
   `)
   const { title } = data.site.siteMetadata
 
-  return (
-    <nav>
-      <h1>{ title }</h1>
-      <div className="links">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/projects">Portfolio Projects</Link>
-      </div>
-    </nav>
-  )
+    const classes = useStyles();
+    console.log(classes.palette);
+    return (
+        <div className={classes.root}>
+            <AppBar position="static" color="transparent">
+                <Toolbar>
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        News
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
 }
+
+
+
